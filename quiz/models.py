@@ -22,6 +22,10 @@ class Quiz(models.Model):
     update_date = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name = 'Quiz'
+        verbose_name_plural = 'Quizzes'
+
     def __str__(self):
         return self.quiz_text
 

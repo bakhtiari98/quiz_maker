@@ -1,0 +1,13 @@
+<h1>{{ quiz.quiz_text }}</h1>
+<br>
+{% for question in quiz.questions.all %}
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ question.question_text }}<br>
+    {% for choice in question.choices.all %}
+        <input type="radio">
+        <label>{{ choice.choice_text }}</label><br>
+    {% endfor %}<hr>
+    </form>
+{% endfor %}
+<input type="submit" value="Done">
