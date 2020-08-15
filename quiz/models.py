@@ -1,6 +1,13 @@
 from django.db import models
 
 
+# Managers
+class QuestionManager(models.Manager):
+    def active(self):
+        return self.filter(active=True)
+
+
+# Models
 class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=30, unique=True)
@@ -40,6 +47,8 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text
+
+    objects = QuestionManager()
 
 
 class Choice(models.Model):

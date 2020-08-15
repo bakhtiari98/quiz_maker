@@ -1,6 +1,16 @@
-<h1>{{ quiz.quiz_text }}</h1>
+<h1>Quiz: {{ quiz.quiz_text }}</h1>
+<h3>Categories:
+    {% if categories %}
+        {% for category in categories %}
+            {{ category.title }},
+        {% endfor %}
+    {% else %}
+        None
+    {% endif %}
+</h3>
+
 <br>
-{% for question in quiz.questions.all %}
+{% for question in quiz.questions.active %}
     <form action="" method="post">
     {% csrf_token %}
     {{ question.question_text }}<br>

@@ -11,4 +11,5 @@ def index(request):
 
 def detail(request, pk):
     quiz = get_object_or_404(Quiz, pk=pk)
-    return render(request, 'quiz/detail.html', {'quiz': quiz})
+    categories = quiz.category.filter(active=True)
+    return render(request, 'quiz/detail.html', {'quiz': quiz, 'categories':categories})
