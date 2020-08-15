@@ -6,6 +6,10 @@ class Category(models.Model):
     slug = models.SlugField(max_length=30, unique=True)
     active = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
     def __str__(self):
         return self.title
 
@@ -13,7 +17,9 @@ class Category(models.Model):
 class Quiz(models.Model):
     category = models.ManyToManyField(Category)
     slug = models.SlugField(max_length=30, unique=True)
-    quiz_text = models.TextField()
+    quiz_text = models.CharField(max_length=200)
+    create_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -22,9 +28,9 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
-    question_text = models.TextField()
-    create_date = models.DateTimeField()
-    publish_date = models.DateTimeField()
+    question_text = models.CharField(max_length=200)
+    create_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
     score = models.IntegerField()
     active = models.BooleanField(default=True)
 
@@ -34,7 +40,7 @@ class Question(models.Model):
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
-    choice_text = models.TextField()
+    choice_text = models.CharField(max_length=200)
     is_answer = models.BooleanField()
 
     def __str__(self):
