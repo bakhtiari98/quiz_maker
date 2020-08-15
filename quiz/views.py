@@ -9,7 +9,7 @@ def index(request):
     return render(request, 'quiz/index.html', {'quizzes': quizzes, 'categories':categories})
 
 
-def detail(request, pk):
-    quiz = get_object_or_404(Quiz, pk=pk)
+def detail(request, slug):
+    quiz = get_object_or_404(Quiz, slug=slug)
     categories = quiz.category.active()
-    return render(request, 'quiz/detail.html', {'quiz': quiz, 'categories':categories})
+    return render(request, 'quiz/detail.html', {'quiz': quiz, 'categories': categories})

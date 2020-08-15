@@ -1,13 +1,53 @@
-{% if categories %}
-    <h3>Categories</h3>
-    {% for category in categories %}
-        <a href="">{{ category.title }}</a>
-        <br>
-    {% endfor %}
-{% endif %}
-<hr>
-<h3>Quizzes</h3>
-{% for quiz in quizzes %}
-    <a href="{% url 'quiz:detail' quiz.id %}">{{ quiz.quiz_text }}</a>
-    <br>
-{% endfor %}
+{% load static %}
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>List Of All Quizzes</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="{% static '/quiz/plugins/fontawesome-free/css/all.min.css' %}">
+      <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <link rel="stylesheet" href="{% static '/quiz/dist/css/adminlte.min.css' %}">
+      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+   </head>
+   <body>
+      <div class="wrapper">
+         <div class="col-md-12">
+            <div class="card">
+               <div class="card-header">
+                  <h3 class="card-title">List Of All Quizzes</h3>
+               </div>
+               <div class="card-body p-0">
+                  <table class="table table-striped">
+                     <thead>
+                        <tr>
+                           <th>Quiz</th>
+                           <th>Category</th>
+                           <th>Number Of Questions</th>
+                           <th>Create date</th>
+                           <th style="width: 80px">Label</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for quiz in quizzes %}
+                           <tr>
+                              <td>{{ quiz.quiz_text }}</td>
+                              <td>{{ quiz.category_to_str }}</td>
+                              <td>{{ quiz.questions.active.count }}</td>
+                              <td>{{ quiz.create_date }}</td>
+                              <td><a href="{% url 'quiz:detail' quiz.slug %}"><button type="button" class="btn btn-block btn-primary">Detail</button></a></td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="{% static '/quiz/plugins/jquery/jquery.min.js' %}"></script>
+      <script src="{% static '/quiz/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static '/quiz/dist/js/adminlte.min.js' %}"></script>
+      <script src="{% static '/quiz/dist/js/demo.js' %}"></script>
+   </body>
+</html>
+
