@@ -4,12 +4,12 @@ from . models import Quiz, Category
 
 
 def index(request):
-    quizzes = Quiz.objects.filter(active=True)
-    categories = Category.objects.filter(active=True)
+    quizzes = Quiz.objects.active()
+    categories = Category.objects.active()
     return render(request, 'quiz/index.html', {'quizzes': quizzes, 'categories':categories})
 
 
 def detail(request, pk):
     quiz = get_object_or_404(Quiz, pk=pk)
-    categories = quiz.category.filter(active=True)
+    categories = quiz.category.active()
     return render(request, 'quiz/detail.html', {'quiz': quiz, 'categories':categories})
