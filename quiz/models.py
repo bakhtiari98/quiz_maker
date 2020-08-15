@@ -22,7 +22,7 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
-    question_text = quiz_text = models.TextField()
+    question_text = models.TextField()
     create_date = models.DateTimeField()
     publish_date = models.DateTimeField()
     score = models.IntegerField()
@@ -34,7 +34,7 @@ class Question(models.Model):
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
-    choice_text = quiz_text = models.TextField()
+    choice_text = models.TextField()
     is_answer = models.BooleanField()
 
     def __str__(self):
